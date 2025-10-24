@@ -10,48 +10,77 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-import { useForm, ValidationError } from '@formspree/react';
+import { useState } from "react";
 
-export const ContactSection = () => {
+// نسخه Formspree - راه‌حل جایگزین
+export const ContactSectionFormspree = () => {
   const { toast } = useToast();
-  const [state, handleSubmit] = useForm("xwprgdyp");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
 
-  // Display success message
-  if (state.succeeded) {
-    return (
-      <section id="contact" className="py-24 px-4 relative bg-secondary/30">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center">
-            <div className="mb-8">
-              <div className="w-20 h-20 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-10 h-10 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-green-600 dark:text-green-400">
-                Your message has been sent!
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Thank you for your message. I will get back to you soon.
-              </p>
-              <button
-                onClick={() => window.location.reload()}
-                className="px-6 py-3 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors"
-              >
-                Send a new message
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Formspree - راه‌حل ساده و رایگان
+      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "پیام ارسال شد!",
+          description: "متشکرم از پیام شما. به زودی با شما تماس خواهم گرفت.",
+        });
+
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Form submission failed');
+      }
+
+    } catch (error) {
+      console.error('Error sending form:', error);
+      toast({
+        title: "خطا در ارسال پیام",
+        description: "متأسفانه پیام شما ارسال نشد. لطفاً دوباره تلاش کنید.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="contact" className="py-24 px-4 relative bg-secondary/30">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Get In <span className="text-primary">Touch</span>
+          Get In <span className="text-primary"> Touch</span>
         </h2>
 
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
@@ -141,15 +170,11 @@ export const ContactSection = () => {
                   type="text"
                   id="name"
                   name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
                   placeholder="Your Name..."
-                />
-                <ValidationError 
-                  prefix="Name" 
-                  field="name"
-                  errors={state.errors}
-                  className="text-red-500 text-sm mt-1"
                 />
               </div>
 
@@ -164,15 +189,11 @@ export const ContactSection = () => {
                   type="email"
                   id="email"
                   name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
                   placeholder="your.email@gmail.com"
-                />
-                <ValidationError 
-                  prefix="Email" 
-                  field="email"
-                  errors={state.errors}
-                  className="text-red-500 text-sm mt-1"
                 />
               </div>
 
@@ -186,28 +207,24 @@ export const ContactSection = () => {
                 <textarea
                   id="message"
                   name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   required
                   rows={5}
                   className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary resize-none"
                   placeholder="Hello, I'd like to talk about..."
                 />
-                <ValidationError 
-                  prefix="Message" 
-                  field="message"
-                  errors={state.errors}
-                  className="text-red-500 text-sm mt-1"
-                />
               </div>
 
               <button
                 type="submit"
-                disabled={state.submitting}
+                disabled={isSubmitting}
                 className={cn(
                   "cosmic-button w-full flex items-center justify-center gap-2",
-                  state.submitting && "opacity-50 cursor-not-allowed"
+                  isSubmitting && "opacity-50 cursor-not-allowed"
                 )}
               >
-                {state.submitting ? "Submitting..." : "Send Message"}
+                {isSubmitting ? "در حال ارسال..." : "ارسال پیام"}
                 <Send size={16} />
               </button>
             </form>
@@ -218,4 +235,4 @@ export const ContactSection = () => {
   );
 };
 
-export default ContactSection;
+export default ContactSectionFormspree;

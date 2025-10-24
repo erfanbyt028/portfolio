@@ -1,4 +1,5 @@
 import { Briefcase, BriefcaseIcon, Code, User } from "lucide-react";
+import cv from "../../public/erfanBayatCv.pdf";
 
 const AbouteMeSection = () => {
   return (
@@ -14,23 +15,24 @@ const AbouteMeSection = () => {
               Passionate Web Developer & tech Creator
             </h3>
             <p className="text-muted-foreground">
-              With over 5 years of experience in web development, I specialize
-              in creating responsive, accessible, and performant web
-              applications using modern technologies.
+              With over 2 years of experience in web development, I specialize
+              in building responsive, accessible, and high-performance web
+              applications using the latest technologies.
             </p>
 
             <p className="text-muted-foreground">
-              I'm passionate about creating elegant solutions to complex
-              problems, and I'm constantly learning new technologies and
-              techniques to stay at the forefront of the ever-evolving web
-              landscape.
+              I’m driven by the challenge of solving complex problems with
+              elegant solutions. Always staying curious, I continuously learn
+              new tools and techniques to keep up with the fast-paced evolution
+              of the web.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
               <a href="#contact" className="cosmic-button">
                 get in touch
               </a>
               <a
-                href="#contact"
+                href={cv}
+                download="Erfan_Bayat_CV.pdf"
                 className="px-6 py-2 rounded-full border border-primary hover:bg-primary/20 transition-colors duration-300"
               >
                 download CV
@@ -48,8 +50,9 @@ const AbouteMeSection = () => {
                     Web Development
                   </h4>
                   <p className="text-muted-foreground">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Quasi, corrupti?
+                    I build modern, responsive, and user-friendly web
+                    applications, focusing on performance, accessibility, and
+                    seamless front-end and back-end integration.
                   </p>
                 </div>
               </div>
@@ -60,12 +63,11 @@ const AbouteMeSection = () => {
                   <User className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-left">
-                  <h4 className="font-semibold text-lg mb-2">
-                    UI/UX Design
-                  </h4>
+                  <h4 className="font-semibold text-lg mb-2">UI/UX Design</h4>
                   <p className="text-muted-foreground">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Quasi, corrupti?
+                    I create clean, intuitive interfaces that enhance user
+                    experience, blending beauty and functionality for easy
+                    navigation.
                   </p>
                 </div>
               </div>
@@ -80,8 +82,9 @@ const AbouteMeSection = () => {
                     Project management
                   </h4>
                   <p className="text-muted-foreground">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Quasi, corrupti?
+                    I manage projects from start to finish, ensuring efficient
+                    execution, clear communication, and successful outcomes
+                    through collaboration.
                   </p>
                 </div>
               </div>
