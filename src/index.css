@@ -91,7 +91,7 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
+    --background: 210 40% 80%; /* تغییر رنگ پس‌زمینه به تیره‌تر */
     --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
@@ -127,6 +127,7 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
 
 @utility container {
   margin-inline: auto;
@@ -186,4 +187,8 @@
   margin: 0 auto;
   padding: 0;
   text-align: center;
+}
+
+.rtl {
+  direction: rtl;
 }

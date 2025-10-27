@@ -1,4 +1,5 @@
 import {
+  Github,
   Instagram,
   Linkedin,
   Mail,
@@ -11,8 +12,10 @@ import {
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useForm, ValidationError } from '@formspree/react';
+import { useTranslation } from "react-i18next";
 
 export const ContactSection = () => {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [state, handleSubmit] = useForm("xwprgdyp");
 
@@ -29,16 +32,16 @@ export const ContactSection = () => {
                 </svg>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-green-600 dark:text-green-400">
-                Your message has been sent!
+                {t('contact.successTitle')}
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
-                Thank you for your message. I will get back to you soon.
+                {t('contact.successMessage')}
               </p>
               <button
                 onClick={() => window.location.reload()}
                 className="px-6 py-3 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors"
               >
-                Send a new message
+                {t('contact.sendNewMessage')}
               </button>
             </div>
           </div>
@@ -51,18 +54,17 @@ export const ContactSection = () => {
     <section id="contact" className="py-24 px-4 relative bg-secondary/30">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Get In <span className="text-primary">Touch</span>
+          {t('contact.title')} <span className="text-primary">{t('contact.titleHighlight')}</span>
         </h2>
 
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Have a project in mind or want to collaborate? Feel free to reach out.
-          I'm always open to discussing new opportunities.
+          {t('contact.description')}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="space-y-8">
             <h3 className="text-2xl font-semibold mb-6">
-              Contact Information
+              {t('contact.contactInfo')}
             </h3>
 
             <div className="space-y-6 justify-center">
@@ -71,7 +73,7 @@ export const ContactSection = () => {
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-medium"> Email</h4>
+                  <h4 className="font-medium"> {t('contact.email')}</h4>
                   <a
                     href="mailto:erfan.bayaat82@gmail.com"
                     className="text-muted-foreground hover:text-primary transition-colors duration-300 transform hover:scale-105"
@@ -85,12 +87,12 @@ export const ContactSection = () => {
                   <Phone className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-medium"> Phone</h4>
+                  <h4 className="font-medium"> {t('contact.phone')}</h4>
                   <a
                     href="tel:+11234567890"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
-                    +98-910-046-5539
+                    0910-046-5539
                   </a>
                 </div>
               </div>
@@ -99,7 +101,7 @@ export const ContactSection = () => {
                   <MapPin className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-medium"> Location</h4>
+                  <h4 className="font-medium"> {t('contact.location')}</h4>
                   <span className="text-muted-foreground">
                     Qazvin, Iran
                   </span>
@@ -108,26 +110,20 @@ export const ContactSection = () => {
             </div>
 
             <div className="pt-8">
-              <h4 className="font-medium mb-4"> Connect With Me</h4>
+              <h4 className="font-medium mb-4"> {t('contact.connectWithMe')}</h4>
               <div className="flex space-x-4 justify-center">
-                <a href="#" target="_blank">
+                <a href="https://www.linkedin.com/in/erfan-bayaat-344916375/" target="_blank">
                   <Linkedin />
                 </a>
-                <a href="#" target="_blank">
-                  <Twitter />
-                </a>
-                <a href="#" target="_blank">
-                  <Instagram />
-                </a>
-                <a href="#" target="_blank">
-                  <Twitch />
+                <a href="https://github.com/erfanbyt028" target="_blank">
+                  <Github />
                 </a>
               </div>
             </div>
           </div>
 
           <div className="bg-card p-8 rounded-lg shadow-xs">
-            <h3 className="text-2xl font-semibold mb-6"> Send a Message</h3>
+            <h3 className="text-2xl font-semibold mb-6"> {t('contact.sendMessage')}</h3>
 
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
@@ -135,7 +131,7 @@ export const ContactSection = () => {
                   htmlFor="name"
                   className="block text-sm font-medium mb-2"
                 >
-                  Your Name
+                  {t('contact.yourName')}
                 </label>
                 <input
                   type="text"
@@ -143,7 +139,7 @@ export const ContactSection = () => {
                   name="name"
                   required
                   className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
-                  placeholder="Your Name..."
+                  placeholder={t('contact.namePlaceholder')}
                 />
                 <ValidationError 
                   prefix="Name" 
@@ -158,7 +154,7 @@ export const ContactSection = () => {
                   htmlFor="email"
                   className="block text-sm font-medium mb-2"
                 >
-                  Your Email
+                  {t('contact.yourEmail')}
                 </label>
                 <input
                   type="email"
@@ -166,7 +162,7 @@ export const ContactSection = () => {
                   name="email"
                   required
                   className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
-                  placeholder="your.email@gmail.com"
+                  placeholder={t('contact.emailPlaceholder')}
                 />
                 <ValidationError 
                   prefix="Email" 
@@ -181,7 +177,7 @@ export const ContactSection = () => {
                   htmlFor="message"
                   className="block text-sm font-medium mb-2"
                 >
-                  Your Message
+                  {t('contact.yourMessage')}
                 </label>
                 <textarea
                   id="message"
@@ -189,7 +185,7 @@ export const ContactSection = () => {
                   required
                   rows={5}
                   className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary resize-none"
-                  placeholder="Hello, I'd like to talk about..."
+                  placeholder={t('contact.messagePlaceholder')}
                 />
                 <ValidationError 
                   prefix="Message" 
@@ -207,7 +203,7 @@ export const ContactSection = () => {
                   state.submitting && "opacity-50 cursor-not-allowed"
                 )}
               >
-                {state.submitting ? "Submitting..." : "Send Message"}
+                {state.submitting ? t('contact.submitting') : t('contact.sendButton')}
                 <Send size={16} />
               </button>
             </form>

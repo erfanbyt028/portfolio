@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const skills = [
   // Frontend
@@ -16,6 +17,9 @@ const skills = [
   { name: "Figma", level: 85, category: "frontend" },
   { name: "Json Server", level: 85, category: "frontend" },
   { name: "Axios", level: 90, category: "frontend" },
+  { name: "i18next", level: 90, category: "frontend" },
+  { name: "lodash", level: 90, category: "frontend" },
+  { name: "react Query", level: 90, category: "frontend" },
 
   // Backend
   { name: "Node.js", level: 20, category: "backend" },
@@ -31,6 +35,7 @@ const skills = [
 ];
 
 export const SkillsSection = () => {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("all");
 
   const categories = useMemo(() => {
@@ -46,11 +51,28 @@ export const SkillsSection = () => {
     [activeCategory]
   );
 
+  const getCategoryLabel = (category) => {
+    switch (category) {
+      case "all":
+        return t('skills.all');
+      case "frontend":
+        return t('skills.frontend');
+      case "backend":
+        return t('skills.backend');
+      case "project manager":
+        return t('skills.projectManager');
+      case "tools":
+        return t('skills.tools');
+      default:
+        return category;
+    }
+  };
+
   return (
     <section id="skills" className="py-24 px-4 relative bg-secondary/30">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-          My <span className="text-primary">Skills</span>
+          {t('skills.title')} <span className="text-primary">{t('skills.titleHighlight')}</span>
         </h2>
 
         <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -68,7 +90,7 @@ export const SkillsSection = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              {category}
+              {getCategoryLabel(category)}
             </motion.button>
           ))}
         </div>

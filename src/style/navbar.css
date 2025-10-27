@@ -1,0 +1,19 @@
+
+  
+  /* استایل برای گزینه‌های درون select */
+  option {
+    background-color: rgba(45, 55, 72, 0.8); /* پس‌زمینه برای هر گزینه */
+    color: #edf2f7; /* رنگ متن */
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* استایل هاور برای هر گزینه */
+  option:hover {
+    background-color: primary;
+    color: primary-foreground;
+  }
+  
+  
